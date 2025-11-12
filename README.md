@@ -89,6 +89,8 @@ if patch doesnt heal user 2025-10-17
 
 USE PIXEL DESIGNS LIKE STAR FOR EXPLOSION
 
+UTILIZE RGB LED
+
 ---
 
 ## NOTES
