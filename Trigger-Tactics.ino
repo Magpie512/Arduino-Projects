@@ -1,92 +1,9 @@
 // Mars Briggs 
 //2025 - 10 - 16
 //Trigger Tactics
-
-/* 
-Imagine a pipboy esque object (from fallout)
-also please god ignore the wiring
-
-MANUAL
-
-The Dial (potentiometer)
-[dial]
-
-The First Button
-[select]
-pushes into next phase
-
-The Second Button
-[back]
-returns to previous phase
-
-Damage Indicators
-[Piezo / Vibe motor / (maybe LEDS too?)]
-unpleasantness to simulate owies
-
-The Third Button
-[Power Button]
-Powers the system on!
-
-Segment Left
-[Opponent HP]
-Counter from 5 to 0
-
-Segment Right
-[Player HP]
-Counter from  5 to 0
-
-LCD SCREEN
-[Displays choices}
-
-Blast | Attack     | Deals -1 point to opponent HP
-Caveat:(only 2 shots)
-
-Guard | Defense    | Blocks Blast
-Caveat: Vulnerable to trick (-1HP)
-
-Trick | Manipulate | Bypasses Guard and deals 1 damage
-Caveat: If matched against Blast, deals 0DMG and takes -2HP
-
-Patch | Heal       | Heals 1 HP unless interrupted by Blast or Trick 
-Caveat: Can three uses
-		If Patch duing opponent Trick, No DMG or heal but still used.
-
-Jam   | Disrupt    | Stuns Opponent if used during Blast or Patch
-Caveat: Stuns User for next turn if used during Trick
-
-Interaction Grid (holy, this hurt my wrist)
-(also changed opponent to enemy to fit it in grid
-*********************************************************
-*User V vs  *		 *		  *		   * 	    * 	    * 
-*Opponent > *  Blast * Guard  *  Trick * Patch  *  Jam  *	
-*			*	 	 *		  *		   *		*       *
-*********************************************************
-*			* Both   * Enemy  * Enemy  * NoUse  * User  *
-*	Blast	* Takes  * Takes  * Takes  * Takes  * is    *
-*   2 Uses  * 1 DMG  * 0 DMG  * 2 DMG  * 1 DMG  *stunned*
-*********************************************************
-*			* Enemy  * No     * User  * Enemy   * No 	*
-*	Guard   * Takes  * Effect * Takes * Heals   * Effect*
-* 			* 0 DMG  *  	  * 2 DMG * 1 HP    *		*
-*********************************************************
-* 	 	 	* User   * Enemy  *Both 1 * No Heal * User  *
-*   Trick   * Takes  * Takes  *DMG5050* -1Patch * Is    *
-*  		    * 2 DMG  * 2 DMG  *Stuns  * Enemy   *Stunned*
-*********************************************************
-*		    * No Use * User   *No Heal* Both    * User  *
-*   Patch	* Takes  * Heals  *-1Patch* +1 HP   * Is    *
-*	3 Uses	* 1 DMG  * 1 HP   * User  *         *Stunned*
-*********************************************************
-*           * Enemy  * No     *User   * Enemy   * No    *
-*    Jam    * Is     * Effect *Is     * Is      * Effect*
-*           * Stunned*        *Stunned* Stunned *       *
-*********************************************************
-*/
-
-//Oh we're getting fancy
 #include <LiquidCrystal.h>
 
-/*********************************** Yeah this is from the piezo lab
+/***********************************
  * Public Constants (Musical Notes)*
  ***********************************/
 #define NOTE_B0 31
@@ -178,10 +95,7 @@ Interaction Grid (holy, this hurt my wrist)
 #define NOTE_CS8 4435
 #define NOTE_D8 4699
 #define NOTE_DS8 4978
-//kept all of it because i cant choose which tune I wanna do and
-//I also reaaallly dont wanna sift through it for useless definitions
 
-//ART YES
 /*
 // Custom Character for Blast (Looks like a star/explosion)
 byte blastArt[] = {
@@ -240,44 +154,6 @@ byte jamArt[] = {
 };
 
 */
-/* Problems
-
-On/Off Works now 25-10-17
-Problem was an ill written function that initially
-only checked for if its off and never if its on
-
-Auto Selecting Turns 25-10-17
-The problem came from wiring being 
-a1 for cycle
-and a2 for select
-not a code issure just me wiring it like a chimp
-
-Going to add RGB LED to inherently add problems
-
-Contrast Potentiometer 
-Is either on at 100% or 
-off at every other config
-Admittedly not much of an issue just wanted to 
-toy with it. might remove tbh
-
-if patch doesnt heal user 2025-10-17
-
-*/
-
-/*  IDEAS
-
-USE PIXEL DESIGNS LIKE STAR FOR EXPLOSION
-
-*/
-
-/* NOTES
-
-ALL TUNES ARE AI
-I AM NOT MUSICALLY INCLINED
-
-*/
-
-
 
 // LCD Pin Setup (Adjust if necessary for your wiring)
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 6;
@@ -394,9 +270,6 @@ void checkPower() {
     lcd.print("System OFFLINE");
   }
 }
-
-
-
 
 // Main Loop
 void loop() {
