@@ -73,9 +73,11 @@
 
 ## IDEAS
 
-USE PIXEL DESIGNS LIKE STAR FOR EXPLOSION
+Use Pixel art at the end of the displays for *flavour*
 
-UTILIZE RGB LED
+Utilize RGB for notifiers
+
+Add Music Tunes
 
 ---
 
