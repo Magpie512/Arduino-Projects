@@ -52,7 +52,7 @@
 ## Notes
 
 - **Patch vs Trick**: Patch is consumed even if no healing or damage occurs.
-- **Jam vs Trick**: Risky—can backfire and stun the user.
+- **Jam vs Trick**: Risky, can backfire and stun the user.
 - **Blast**: Limited to 2 uses per game.
 - **Patch**: Limited to 3 uses per game.
 
