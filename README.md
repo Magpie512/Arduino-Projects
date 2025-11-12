@@ -60,6 +60,15 @@
 
 ## Wiring
 
+| User vs Enemy | Blast         | Guard         | Trick         | Patch         | Jam           |
+|---------------|---------------|---------------|---------------|---------------|---------------|
+| **Blast**     | Both take 1 DMG, user stunned | Enemy takes 0 DMG | Enemy takes 2 DMG | Enemy takes 1 DMG | User is stunned |
+| **Guard**     | Enemy takes 0 DMG | No effect     | User takes 2 DMG | Heals 1 HP     | No effect     |
+| **Trick**     | User takes 2 DMG | Enemy takes 2 DMG | Both take 1 DMG, both stunned | Patch wasted | User is stunned |
+| **Patch**     | Takes 1 DMG    | Heals 1 HP     | Patch wasted   | Heals 1 HP     | User is stunned |
+| **Jam**       | Enemy stunned  | No effect     | User stunned   | Enemy stunned  | No effect     |
+
+
 ---
 
 ## Problems
