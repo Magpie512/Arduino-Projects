@@ -79,6 +79,9 @@ Utilize RGB for notifiers
 
 Add Music Tunes
 
+Use the switch for on OFF
+(frees some ports)
+
 ---
 
 ## Notes 
