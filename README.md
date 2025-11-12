@@ -71,7 +71,20 @@
 
 ---
 
-## Problems
+## IDEAS
+
+USE PIXEL DESIGNS LIKE STAR FOR EXPLOSION
+
+UTILIZE RGB LED
+
+---
+
+## Notes 
+
+ALL TUNES ARE AI
+I AM NOT MUSICALLY INCLINED
+
+### Trouble shooting
 On/Off Works now 25-10-17
 Problem was an ill written function that initially
 only checked for if its off and never if its on
@@ -91,19 +104,4 @@ Admittedly not much of an issue just wanted to
 toy with it. might remove tbh
 
 if patch doesnt heal user 2025-10-17
-
----
-
-## IDEAS
-
-USE PIXEL DESIGNS LIKE STAR FOR EXPLOSION
-
-UTILIZE RGB LED
-
----
-
-## NOTES
-
-ALL TUNES ARE AI
-I AM NOT MUSICALLY INCLINED
 
