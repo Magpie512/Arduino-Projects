@@ -1,6 +1,6 @@
 # Trigger Tactics  
-*By Mars Briggs — October 16, 2025*  
 *A pipboy-esque tactical interface for simulated combat interactions.*
+*( Five way rock paper scissors )*
 
 ---
 
