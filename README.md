@@ -58,13 +58,41 @@
 
 ---
 
-## Build Notes
+## Wiring
 
-- Wiring is intentionally omitted from documentation.
-- Designed for modular expansion and physical feedback.
-- Interaction grid was manually constructed—brace your wrist if editing!
+---
 
+## Problems
+On/Off Works now 25-10-17
+Problem was an ill written function that initially
+only checked for if its off and never if its on
 
-- Wiring is intentionally omitted from documentation.
-- Designed for modular expansion and physical feedback.
-- Interaction grid was manually constructed—brace your wrist if editing!
+Auto Selecting Turns 25-10-17
+The problem came from wiring being 
+a1 for cycle
+and a2 for select
+not a code issure just me wiring it like a chimp
+
+Going to add RGB LED to inherently add problems
+
+Contrast Potentiometer 
+Is either on at 100% or 
+off at every other config
+Admittedly not much of an issue just wanted to 
+toy with it. might remove tbh
+
+if patch doesnt heal user 2025-10-17
+
+---
+
+## IDEAS
+
+USE PIXEL DESIGNS LIKE STAR FOR EXPLOSION
+
+---
+
+## NOTES
+
+ALL TUNES ARE AI
+I AM NOT MUSICALLY INCLINED
+
