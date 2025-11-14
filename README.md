@@ -9,19 +9,6 @@
 
 ---
 
-## System Components & I/O
-
-| Component | Description | Code Pin | Type | Status/Note |
-| :--- | :--- | :--- | :--- | :--- |
-| **Cycle Button** (CYC) | Scrolls through move options (A0) | **A0** | Analog/Digital Input | `INPUT_PULLUP` |
-| **Confirm Button** (SEL) | Selects current option/Confirms move (A1) | **A1** | Analog/Digital Input | `INPUT_PULLUP` |
-| **Display Switch** | Toggles the LCD display power (ON/OFF) | **7** | Digital Input | `INPUT_PULLUP` |
-| **Buzzer** | Provides audio feedback (Tunes/Damage SFX) | **10** | Digital Output | `tone()` function |
-| **LCD Screen (16x2)** | Displays choices, HP, and turn results | **12, 11, 5, 4, 3, 6** | Digital Output | LiquidCrystal pins |
-| **RGB LEDs** | Visual feedback (Pazazz!) | **13, 8, 9** | Digital Output | `rLed, gLed, bLed` |
-
----
-
 ## Action Commands
 
 | Action | Type | Effect | Caveat / Limit |
@@ -65,6 +52,19 @@ This table shows the hardware connections based on the `//Pin Delares` section o
 | **LCD D5** | Data 5 | **4** | |
 | **LCD D6** | Data 6 | **3** | |
 | **LCD D7** | Data 7 | **6** | |
+
+---
+
+## System Components & I/O
+
+| Component | Description | Code Pin | Type | Status/Note |
+| :--- | :--- | :--- | :--- | :--- |
+| **Cycle Button** (CYC) | Scrolls through move options (A0) | **A0** | Analog/Digital Input | `INPUT_PULLUP` |
+| **Confirm Button** (SEL) | Selects current option/Confirms move (A1) | **A1** | Analog/Digital Input | `INPUT_PULLUP` |
+| **Display Switch** | Toggles the LCD display power (ON/OFF) | **7** | Digital Input | `INPUT_PULLUP` |
+| **Buzzer** | Provides audio feedback (Tunes/Damage SFX) | **10** | Digital Output | `tone()` function |
+| **LCD Screen (16x2)** | Displays choices, HP, and turn results | **12, 11, 5, 4, 3, 6** | Digital Output | LiquidCrystal pins |
+| **RGB LEDs** | Visual feedback (Pazazz!) | **13, 8, 9** | Digital Output | `rLed, gLed, bLed` |
 
 ---
 
