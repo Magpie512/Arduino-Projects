@@ -1,4 +1,4 @@
-# Trigger Tactics 🕹️
+# Trigger Tactics
 *A pipboy-esque tactical interface for simulated combat interactions (Five-way rock-paper-scissors).*
 
 ---
