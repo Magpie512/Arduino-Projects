@@ -1,112 +1,93 @@
-# Trigger Tactics  
-*A pipboy-esque tactical interface for simulated combat interactions.*
-*( Five way rock paper scissors )*
+# Trigger Tactics 🕹️
+*A pipboy-esque tactical interface for simulated combat interactions (Five-way rock-paper-scissors).*
 
 ---
 
 ## Overview
 
-**Trigger Tactics** is a physical interface game inspired by Fallout's Pip-Boy, designed to simulate strategic combat phases using tactile inputs and feedback mechanisms. Players engage in turn-based actions with limited-use abilities, health counters, and a dynamic interaction grid.
+**Trigger Tactics** is a physical interface game inspired by **Fallout's Pip-Boy**, designed to simulate strategic combat phases using tactile inputs and feedback mechanisms. Players engage in turn-based actions with limited-use abilities, health counters, and a dynamic interaction grid.
 
 ---
 
-## System Components
+## System Components & I/O
 
-| Component         | Description                                                                 |
-|------------------|-----------------------------------------------------------------------------|
-| **Dial**         | Potentiometer used to scroll/select options                                 |
-| **Select Button**| Advances to the next phase                                                  |
-| **Back Button**  | Returns to the previous phase                                               |
-| **Power Button** | Powers the system on                                                        |
-| **Damage Indicators** | Piezo buzzer, vibe motor, or LEDs simulate damage feedback ("owies")     |
-| **LCD Screen**   | Displays current action choices                                             |
-| **Segment Left** | Opponent HP counter (5 → 0)                                                 |
-| **Segment Right**| Player HP counter (5 → 0)                                                   |
+| Component | Description | Code Pin | Type | Status/Note |
+| :--- | :--- | :--- | :--- | :--- |
+| **Cycle Button** (CYC) | Scrolls through move options (A0) | **A0** | Analog/Digital Input | `INPUT_PULLUP` |
+| **Confirm Button** (SEL) | Selects current option/Confirms move (A1) | **A1** | Analog/Digital Input | `INPUT_PULLUP` |
+| **Display Switch** | Toggles the LCD display power (ON/OFF) | **7** | Digital Input | `INPUT_PULLUP` |
+| **Buzzer** | Provides audio feedback (Tunes/Damage SFX) | **10** | Digital Output | `tone()` function |
+| **LCD Screen (16x2)** | Displays choices, HP, and turn results | **12, 11, 5, 4, 3, 6** | Digital Output | LiquidCrystal pins |
+| **RGB LEDs** | Visual feedback (Pazazz!) | **13, 8, 9** | Digital Output | `rLed, gLed, bLed` |
 
 ---
 
 ## Action Commands
 
-| Action   | Type        | Effect                                                                 | Caveat                                                                 |
-|----------|-------------|------------------------------------------------------------------------|------------------------------------------------------------------------|
-| **Blast**| Attack      | Deals 1 damage to opponent                                              | Only 2 uses                                                            |
-| **Guard**| Defense     | Blocks Blast                                                            | Vulnerable to Trick (-1 HP)                                           |
-| **Trick**| Manipulate  | Bypasses Guard, deals 1 damage                                          | If matched against Blast: deals 0 DMG and takes -2 HP                 |
-| **Patch**| Heal        | Heals 1 HP                                                              | 3 uses max; interrupted by Blast or Trick                             |
-| **Jam**  | Disrupt     | Stuns opponent if timed with Blast or Patch                             | If used during Trick, user is stunned next turn                       |
+| Action | Type | Effect | Caveat / Limit |
+| :--- | :--- | :--- | :--- |
+| **Blast** | Attack | Deals 1 damage to opponent | Only **2 uses** per game. |
+| **Guard** | Defense | Blocks Blast, no effect otherwise. | Vulnerable to **Trick** (-2 HP). |
+| **Trick** | Manipulate | Bypasses **Guard** to deal 2 damage. | If matched against **Blast**, user takes **-2 HP**. |
+| **Patch** | Heal | Heals 1 HP. | **3 uses** max. Interrupted by **Blast** or **Trick**. |
+| **Jam** | Disrupt | Stuns opponent if timed with **Blast** or **Patch**. | If matched against **Trick**, user is stunned next turn. |
 
 ---
 
 ## Interaction Grid
 
-| User vs Enemy | Blast         | Guard         | Trick         | Patch         | Jam           |
-|---------------|---------------|---------------|---------------|---------------|---------------|
-| **Blast**     | Both take 1 DMG, user stunned | Enemy takes 0 DMG | Enemy takes 2 DMG | Enemy takes 1 DMG | User is stunned |
-| **Guard**     | Enemy takes 0 DMG | No effect     | User takes 2 DMG | Heals 1 HP     | No effect     |
-| **Trick**     | User takes 2 DMG | Enemy takes 2 DMG | Both take 1 DMG, both stunned | Patch wasted | User is stunned |
-| **Patch**     | Takes 1 DMG    | Heals 1 HP     | Patch wasted   | Heals 1 HP     | User is stunned |
-| **Jam**       | Enemy stunned  | No effect     | User stunned   | Enemy stunned  | No effect     |
+| User vs Enemy | **Blast** | **Guard** | **Trick** | **Patch** | **Jam** |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Blast** | Both take 1 DMG | Enemy takes 0 DMG | Enemy takes 2 DMG | Enemy takes 1 DMG | User is stunned |
+| **Guard** | Enemy takes 0 DMG | No effect | User takes 2 DMG | Enemy Heals 1 HP | No effect |
+| **Trick** | User takes 2 DMG | Enemy takes 2 DMG | Both take 1 DMG | Enemy takes 1 DMG | User is stunned |
+| **Patch** | User takes 1 DMG | User Heals 1 HP | Patch wasted (No effect) | Both Heal 1 HP | User is stunned |
+| **Jam** | Enemy stunned | No effect | User stunned | Enemy stunned | No effect |
 
 ---
 
-## Notes
+## Wiring Pinout (Arduino)
 
-- **Patch vs Trick**: Patch is consumed even if no healing or damage occurs.
-- **Jam vs Trick**: Risky, can backfire and stun the user.
-- **Blast**: Limited to 2 uses per game.
-- **Patch**: Limited to 3 uses per game.
+This table shows the hardware connections based on the `//Pin Delares` section of the code.
 
----
-
-## Wiring
-
-| User vs Enemy | Blast         | Guard         | Trick         | Patch         | Jam           |
-|---------------|---------------|---------------|---------------|---------------|---------------|
-| **Blast**     | Both take 1 DMG, user stunned | Enemy takes 0 DMG | Enemy takes 2 DMG | Enemy takes 1 DMG | User is stunned |
-| **Guard**     | Enemy takes 0 DMG | No effect     | User takes 2 DMG | Heals 1 HP     | No effect     |
-| **Trick**     | User takes 2 DMG | Enemy takes 2 DMG | Both take 1 DMG, both stunned | Patch wasted | User is stunned |
-| **Patch**     | Takes 1 DMG    | Heals 1 HP     | Patch wasted   | Heals 1 HP     | User is stunned |
-| **Jam**       | Enemy stunned  | No effect     | User stunned   | Enemy stunned  | No effect     |
-
-
----
-
-## IDEAS
-
-Use Pixel art at the end of the displays for *flavour*
-
-Utilize RGB for notifiers
-
-Add Music Tunes
-
-Use the switch for on OFF
-(frees some ports)
+| Component | Component Pin | Arduino Pin | Notes |
+| :--- | :--- | :--- | :--- |
+| **Cycle/Back Button** | Digital Out | **A0** | Used for Cycle (forward) and Back (return) |
+| **Confirm/Select Button**| Digital Out | **A1** | Used for Select (confirm) and Reset |
+| **Piezo Buzzer** | Signal | **10** | `buzzerPin` |
+| **Display ON/OFF Switch**| Digital Out | **7** | `displaySwitch` |
+| **Red LED** | Anode (+) | **13** | `rLed` (Usually built-in LED too) |
+| **Green LED** | Anode (+) | **8** | `gLed` |
+| **Blue LED** | Anode (+) | **9** | `bLed` |
+| **LCD RS** | Register Select | **12** | |
+| **LCD Enable** | Enable | **11** | |
+| **LCD D4** | Data 4 | **5** | |
+| **LCD D5** | Data 5 | **4** | |
+| **LCD D6** | Data 6 | **3** | |
+| **LCD D7** | Data 7 | **6** | |
 
 ---
 
-## Notes 
+## Development Notes 📝
 
-ALL TUNES ARE AI
-I AM NOT MUSICALLY INCLINED
+### Key Implementation Details
+* The **"Dial"** mentioned in the original components list is implemented functionally by the **Cycle Button (A0)** in the code.
+* **Health:** Both Player and Enemy start with **5 HP**.
+* **Limited Uses:** **Blast** (2 uses), **Patch** (3 uses).
+* **Stunned State:** A player/enemy skips their move on the next turn when stunned. When the enemy is stunned, the player's move resolves without an enemy counter-move.
 
-### Trouble shooting
-On/Off Works now 25-10-17
-Problem was an ill written function that initially
-only checked for if its off and never if its on
+### Troubleshooting & Learnings
+* **2025-10-17:** Resolved bug where the On/Off switch logic was incomplete, now correctly checks for both states.
+* **2025-10-17:** Corrected wiring issue for button assignment (A1 and A2) to properly utilize **A0** (`cycleBtn`) and **A1** (`confirmBtn`).
+* **RGB LED:** Intended for adding visual flair to turn resolution.
+* **Contrast Potentiometer:** Not critical, may be removed for simplification.
+* **Music:** All tunes are placeholder/simple functions (AI/Stock) due to the developer's musical inexperience.
+* **Patch vs Trick Correction:** Patch is stopped by Trick, and the use is consumed ("Patch wasted").
 
-Auto Selecting Turns 25-10-17
-The problem came from wiring being 
-a1 for cycle
-and a2 for select
-not a code issure just me wiring it like a chimp
+---
 
-Going to add RGB LED to inherently add problems
+## IDEAS FOR FLAVOR
 
-Contrast Potentiometer 
-Is either on at 100% or 
-off at every other config
-Admittedly not much of an issue just wanted to 
-toy with it. might remove tbh
-
-if patch doesnt heal user 2025-10-17
-
+* Use Pixel art custom characters on the LCD for HP indicators or move icons.
+* Utilize **RGB LEDs** for status notifications (e.g., Red flash on damage, Green flash on heal).
+* Add more complex background **Music Tunes**.
